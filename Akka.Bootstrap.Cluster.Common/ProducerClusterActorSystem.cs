@@ -1,31 +1,26 @@
-﻿using Akka.Bootstrap.Cluster.Common;
-using Akka.Configuration;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Akka.Actor;
+using Akka.Configuration;
 
-namespace Akka.Bootstrap.Cluster.Node1
+namespace Akka.Bootstrap.Cluster.Common
 {
-    class ProgramNode2
+    public static class ProducerClusterActorSystem
     {
-        static void Main(string[] args)
+        public static ActorSystem CreateActorSystem(int index)
         {
-            var index = args.Length == 1 ? int.Parse(args[0]) : 1;
+            var configString = ConfigString.Replace("port = 33701", $"port = 337{index:00}");
+            var config = ConfigurationFactory.ParseString(configString);
 
-            var actorSystem = ConsumerClusterActorSystem.CreateActorSystem(index);
+            var actorSystem = ActorSystem.Create(Constants.ActorSystemName, config);
 
-            Console.Title = nameof(ProgramNode2);
-            Console.WriteLine($"{nameof(ConsumerClusterActorSystem)} {index}");
-            Console.ReadLine();
+            //actorSystem.ActorOf(PingPongActor.CreateProps(), "ping");
+            var producerActorRef = actorSystem.ActorOf(Props.Create<ProducerActor>(index), "producer");
+
+
+            return actorSystem;
         }
-
-        private class PingRemote : ReceiveActor
-        {
-            public PingRemote()
-            {
-                ReceiveAny(m => { Console.WriteLine(m);});
-            }
-        }
-
 
         private const string ConfigString = @"
 akka {
@@ -37,6 +32,16 @@ akka {
             /ping/pong {
                 router = broadcast-group
                 routees.paths = [""/user/ping""]
+                cluster {
+                    enabled = on
+                    max-nr-of-instances-per-node = 1
+                    allow-local-routees = off
+                    use-role = ""Node2""
+                }
+            }
+            /producer/consumeractors {
+                router = broadcast-group
+                routees.paths = [""/user/consumer""]
                 cluster {
                     enabled = on
                     max-nr-of-instances-per-node = 1
@@ -59,7 +64,7 @@ akka {
             lifecycle = on
             event-stream = on
             unhandled = on
-        }
+        }        
     }
     remote {
         log-remote-lifecycle-events = off
@@ -69,13 +74,13 @@ akka {
             applied-adapters = []
             transport-protocol = tcp
             hostname = ""127.0.0.1""
-            port = 33702
+            port = 33701
             maximum-frame-size = 12800000b
         }
     }
     cluster {
         seed-nodes = [""akka.tcp://BootstrapCluster@127.0.0.1:33701""]
-        roles = [""Node2""]
+        roles = [""Node1""]
     }
 }
 ";

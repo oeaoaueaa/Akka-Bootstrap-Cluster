@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Bootstrap.Cluster.Node
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Bootstrap.Cluster.Common", "Akka.Bootstrap.Cluster.Common\Akka.Bootstrap.Cluster.Common.csproj", "{F1AD893B-9505-480F-89BE-208D4A15500B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{ACC74A74-8EC4-417B-BB6A-E9C6D3F5D1EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F1AD893B-9505-480F-89BE-208D4A15500B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1AD893B-9505-480F-89BE-208D4A15500B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1AD893B-9505-480F-89BE-208D4A15500B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC74A74-8EC4-417B-BB6A-E9C6D3F5D1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC74A74-8EC4-417B-BB6A-E9C6D3F5D1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC74A74-8EC4-417B-BB6A-E9C6D3F5D1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC74A74-8EC4-417B-BB6A-E9C6D3F5D1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
