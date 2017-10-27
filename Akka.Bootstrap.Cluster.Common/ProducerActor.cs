@@ -18,7 +18,9 @@ namespace Akka.Bootstrap.Cluster.Common
 
             Receive<Produce>(_ =>
             {
-                _consumerActor.Tell(new WorkItemMessage($"{_index}"));
+                var message = new WorkItemMessage($"{_index}");
+                //_consumerActor.Tell(message);
+                _consumerActor.Tell(new ConsistentHashableEnvelope(message, _index));
             });
         }
 

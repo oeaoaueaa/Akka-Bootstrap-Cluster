@@ -36,17 +36,20 @@ akka {
                     enabled = on
                     max-nr-of-instances-per-node = 1
                     allow-local-routees = off
-                    use-role = ""Node2""
+                    use-role = ""Consumer""
                 }
             }
             /producer/consumeractors {
-                router = broadcast-group
+                #router = broadcast-group
+                #router = consistent-hashing-pool
+                router = consistent-hashing-group
+                virtual-nodes-factor = 16
                 routees.paths = [""/user/consumer""]
                 cluster {
                     enabled = on
                     max-nr-of-instances-per-node = 1
                     allow-local-routees = off
-                    use-role = ""Node2""
+                    use-role = ""Consumer""
                 }
             }
         }
@@ -80,7 +83,7 @@ akka {
     }
     cluster {
         seed-nodes = [""akka.tcp://BootstrapCluster@127.0.0.1:33701""]
-        roles = [""Node1""]
+        roles = [""Producer""]
     }
 }
 ";

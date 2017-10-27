@@ -14,15 +14,15 @@ namespace Runner
 
             var solutionRoot = Environment.CurrentDirectory.Replace("\\Runner", string.Empty);
             var producerPath =
-                $@"{solutionRoot}\Akka.Bootstrap.Cluster.Node1\bin\Debug\netcoreapp2.0\Akka.Bootstrap.Cluster.Node1.dll";
-            var consumerPath =
                 $@"{solutionRoot}\Akka.Bootstrap.Cluster.Node2\bin\Debug\netcoreapp2.0\Akka.Bootstrap.Cluster.Node2.dll";
+            var consumerPath =
+                $@"{solutionRoot}\Akka.Bootstrap.Cluster.Node1\bin\Debug\netcoreapp2.0\Akka.Bootstrap.Cluster.Node1.dll";
 
-            var producerCount = 1;
-            var consumerCount = 2;
+            var producerCount = 4;
+            var consumerCount = 4;
 
-            var producerProcesses = Enumerable.Range(0, producerCount).Select(i => Process.Start($"dotnet",  $"\"{producerPath}\" {i}")).ToList();
-            var consumerProcesses = Enumerable.Range(0, consumerCount).Select(i => Process.Start($"dotnet", $"\"{consumerPath}\" {i}")).ToList();
+            var producerProcesses = Enumerable.Range(1, producerCount).Select(i => Process.Start($"dotnet",  $"\"{producerPath}\" {i}")).ToList();
+            var consumerProcesses = Enumerable.Range(1, consumerCount).Select(i => Process.Start($"dotnet", $"\"{consumerPath}\" {i}")).ToList();
 
             Console.ReadLine();
             producerProcesses.ForEach(p => p.Kill());

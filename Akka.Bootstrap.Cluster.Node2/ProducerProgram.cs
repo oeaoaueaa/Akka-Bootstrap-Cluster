@@ -7,7 +7,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace Akka.Bootstrap.Cluster.Node2
 {
-    class ProgramNode1
+    class ProducerProgram
     {
         static void Main(string[] args)
         {
@@ -18,9 +18,9 @@ namespace Akka.Bootstrap.Cluster.Node2
             
             var index = args.Length == 1 ? int.Parse(args[0]) : 1;
 
-            var actorSystem = ProducerClusterActorSystem.CreateActorSystem(index);
+            var producerActorSystem = ProducerClusterActorSystem.CreateActorSystem(index);
 
-            Console.Title = nameof(ProgramNode1);
+            Console.Title = nameof(ProducerProgram);
             Console.WriteLine($"{nameof(ProducerClusterActorSystem)} {index}");
             Console.ReadLine();
         }

@@ -17,7 +17,7 @@ namespace Akka.Bootstrap.Cluster.Common
 
             //actorSystem.ActorOf(PingPongActor.CreateProps(), "ping");
 
-            var consumerActorRef = actorSystem.ActorOf(Props.Create<ConsumerActor>(), "consumer");
+            var consumerActorRef = actorSystem.ActorOf(Props.Create<ConsumerActor>(index), "consumer");
 
             return actorSystem;
         }
@@ -36,7 +36,7 @@ akka {
                     enabled = on
                     max-nr-of-instances-per-node = 1
                     allow-local-routees = off
-                    use-role = ""Node1""
+                    use-role = ""Producer""
                 }
             }
         }
@@ -70,7 +70,7 @@ akka {
     }
     cluster {
         seed-nodes = [""akka.tcp://BootstrapCluster@127.0.0.1:33701""]
-        roles = [""Node2""]
+        roles = [""Consumer""]
     }
 }
 ";
